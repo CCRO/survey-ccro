@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  prompt: MyString
+  answer_method: MyString
+  required: false
+
+two:
+  prompt: MyString
+  answer_method: MyString
+  required: false
