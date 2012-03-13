@@ -1,8 +1,9 @@
 class Question < ActiveRecord::Base
   
+  has_one :answer
+  belongs_to :survey
+  has_many :people, :through => :answers
+  
   serialize :possible_responses
   
-  belongs_to :survey
-  has_many :answers
-  has_many :people, :through => :answers
 end

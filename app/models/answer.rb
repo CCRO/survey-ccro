@@ -1,7 +1,8 @@
 class Answer < ActiveRecord::Base
+  
   belongs_to :question
-  belongs_to :person
   has_one :survey, :through => :question
+  belongs_to :person
   
   validate :valid_response
   
