@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CcroSurvey</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+<br /><br /><hr />
+<p>Logged in as <%= current_user.email if current_user %></p>
+
+<%= link_to "Log Out", logout_path %>
+</body>
+</html>

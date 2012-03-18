@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @survey.name %></h1>
+
+<% @res.each do |q| %>
+  <% question = Question.find(q[:question_id]) %>
+  <b><%= question.prompt %></b><br />
+  <table>
+  <% question.answers.each do |a| %>
+    <tr><td style="width: 300px;"><%= a.option + ": " %>
+    </td><td style="width: 425px;">
+      <% if q[:stats].assoc(a.id) %>
+          <div style="margin-top: 2px;display: block; float: left; background-color: grey; height: 15px; width: <%= (q[:stats].assoc(a.id)[2].floor * 4).to_s %>px"></div>
+        &nbsp;&nbsp;<%= q[:stats].assoc(a.id)[1].to_s %>
+      <% else %>
+          <div style="margin-top: 2px;display: block; float: left; background-color: grey; height: 15px; width: 2px"></div>
+      <% end %></td>
+    </tr>
+    <% end %>
+  <% Response.where(:question_id => Question.find(q[:question_id])).each do |ans| %>
+    <% if ans && ans.message %>
+      <tr><td colspan="2"><%= ans.message %></td></tr>
+    <% end %>
+  <% end %>
+  </table>
+<% end %>
+
+
+<%= link_to 'Back', surveys_path %>

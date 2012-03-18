@@ -1,0 +1,20 @@
+<%= @question.prompt %><br />
+
+<% @question.answers.each do |a| %>
+	<%= a.option %><br />
+<% end %>
+<%= form_for(@answer) do |f| %>
+  <div class="field">
+	<%= f.hidden_field :question_id %><br />
+    <%= f.label :option %><br />
+    <%= f.text_area :option, :placeholder => "For short answer text field - leave blank and press 'Finished with Question'" if @question.answers.count == 0 %>
+    <%= f.text_area :option if @question.answers.count > 0 %>
+  </div>
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<%= link_to "Finished with Question", edit_survey_path(@question.survey) %>
+
+<% end %>
