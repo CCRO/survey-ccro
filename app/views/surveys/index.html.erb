@@ -1,25 +1,37 @@
 <h1>Listing surveys</h1>
-
-<table>
+<br />
+<table class="table table-bordered">
   <tr>
     <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
 <% @surveys.each do |survey| %>
   <tr>
-    <td><%= survey.name %></td>
-    <td><%= link_to 'Show', survey %></td>
-    <td><%= link_to 'Report', report_path(survey.id) %></td>
-    <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
-    <td><%= link_to 'Destroy', survey, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= survey.name %> <em>(<%= survey.users.count.to_s + " respondents" if survey.users %>)</em> <%= raw('<span class="label label-important">NEW</span>') if survey.responses.last && survey.responses.last.created_at > 5.hours.ago %></td>
+    <td class="span2">
+      <% if current_user.admin %>
+      <div class="btn-group">
+        <a href="<%= survey_path(survey) %>" class="btn">Show</a>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><%= link_to 'Report', report_path(survey.id) %></li>
+            <li><%= link_to 'Invite User', invite_path(survey.id) %></li>
+           <li><%= link_to 'Edit', edit_survey_path(survey) %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Delete', survey, confirm: 'Are you sure?', method: :delete %></li>
+        </ul>
+      </div>
+      <% else %>
+        <%= link_to "Take Survey", survey, :class => 'btn'%>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Survey', new_survey_path %>
+<%= link_to 'New Survey', new_survey_path, :class => 'btn btn-primary' %>

@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to surveys_url, :notice => "Successfully logged in."
+      redirect_back_or_default surveys_url
     else
       render "new", :notice => "Invalid Login"
     end

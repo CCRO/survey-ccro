@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
-
-  <%= form_tag sessions_path, :method => 'post' do %>
+  <%= form_tag sessions_path, {:class => 'well span4 offset3', :method => 'post'} do %>
     <div class="field">
       <%= label_tag :email %><br />
       <%= text_field_tag :email, nil, :placeholder => "your@email.com" %>
@@ -12,3 +11,4 @@
 
     <div class="actions"><%= submit_tag "Log In", :class => "btn" %></div>
   <% end%>
+  <div style="clear:both;"></div>

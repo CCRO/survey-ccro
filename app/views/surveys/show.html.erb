@@ -1,34 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b><%= @survey.name %></b>
-  
-</p>
+  <h1><%= @survey.name %></h1><br />
 
-
-<div>
-	<%= form_tag responses_path, :method => 'post' do %>
+	<%= form_tag responses_path, { :method => 'post', :class => 'well' } do %>
 		<% @survey.questions.each do |question| %>
 				<%= hidden_field_tag "[response]#{question.id}[question_id]", question.id %>
-		  		<p><b><%= question.prompt %></b></p>
+		  		<label><b><%= question.prompt %></b></label>
 				<% unless question.answers.count == 0 %>
+				
 					<% question.answers.each do |a| %>
+					    <label class="radio">
 			  			<%= radio_button_tag "[response]#{question.id}[answer_id]", a.id, Response.find_or_initialize_by_user_id_and_question_id(current_user,question).answer_id == a.id %><%= a.option %><br />
+					    </label>
 					<% end %>
 				<% else %>
 		
 					<%= text_area_tag "[response]#{question.id}[message]",  Response.find_or_initialize_by_user_id_and_question_id(current_user,question).message %>
 			
 				<% end %>
-		  
+		  <br />
 		<% end %>
 		<br />
 		<br />
-		<%= submit_tag 'submit' %>
+		<%= submit_tag 'submit', :class => 'btn-primary' %>
+		<%= link_to 'Back', surveys_path %>
 	<% end %>
 </div>
 
 <br />
 <br />
 
-<%= link_to 'Back', surveys_path %>
+

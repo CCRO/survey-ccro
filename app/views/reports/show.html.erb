@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @survey.name %></h1>
-
+<br />
 <% @res.each do |q| %>
   <% question = Question.find(q[:question_id]) %>
   <b><%= question.prompt %></b><br />
@@ -10,11 +10,18 @@
     <tr><td style="width: 300px;"><%= a.option + ": " %>
     </td><td style="width: 425px;">
       <% if q[:stats].assoc(a.id) %>
-          <div style="margin-top: 2px;display: block; float: left; background-color: grey; height: 15px; width: <%= (q[:stats].assoc(a.id)[2].floor * 4).to_s %>px"></div>
-        &nbsp;&nbsp;<%= q[:stats].assoc(a.id)[1].to_s %>
+      <div class="progress progress-striped active">
+        <div class="bar"
+             style="width: <%= (q[:stats].assoc(a.id)[2].floor).to_s %>%;"></div>
+      </div>
       <% else %>
-          <div style="margin-top: 2px;display: block; float: left; background-color: grey; height: 15px; width: 2px"></div>
+      <div class="progress progress-striped">
+        <div class="bar"
+             style="width: 1%;"></div>
+      </div>
       <% end %></td>
+      <td class="span1">&nbsp;&nbsp;<%= (q[:stats].assoc(a.id)) ? q[:stats].assoc(a.id)[1].to_s : "0" %>
+      </td>
     </tr>
     <% end %>
   <% Response.where(:question_id => Question.find(q[:question_id])).each do |ans| %>

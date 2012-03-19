@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  before_filter :require_admin
+  
   # GET /users
   # GET /users.json
   def index
@@ -62,6 +65,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }

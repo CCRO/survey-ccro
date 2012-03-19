@@ -14,6 +14,7 @@ CcroSurvey::Application.routes.draw do
   match 'login' => 'sessions#new'
   match 'logout' => 'sessions#destroy'
   
+  match 'invite/:id' => 'surveys#invite_user', :as => 'invite'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

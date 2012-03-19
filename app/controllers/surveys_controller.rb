@@ -83,4 +83,10 @@ class SurveysController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def invite_user
+    @survey = Survey.find(params[:id])
+    UserMailer.survey_invite(@survey, User.first).deliver
+    redirect_to :back
+  end
 end

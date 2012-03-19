@@ -2,12 +2,7 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
   def index
-    @answers = Answer.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @answers }
-    end
+    render :text => "Explosion!", :status => 403
   end
 
   # GET /answers/1

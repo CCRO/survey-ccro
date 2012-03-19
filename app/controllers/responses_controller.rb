@@ -44,6 +44,7 @@ class ResponsesController < ApplicationController
       @response = Response.find_or_initialize_by_user_id_and_question_id(current_user,r[:question_id])
       @response.answer_id = r[:answer_id] if r[:answer_id]
       @response.message = r[:message] if r[:message]
+      
       @response.user = current_user if current_user
       @response.save
     end

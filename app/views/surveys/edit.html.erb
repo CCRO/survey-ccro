@@ -3,20 +3,23 @@
 
 <div>
 	<% @survey.questions.each do |question| %>
-  		<p><%= question.prompt %></p>
+  		<label><b><%= question.prompt %></b></label>
 		<% question.answers.each do |a| %>
+		   <label class="radio">
   			<%= radio_button_tag a, a %><%= a.option %><br />
+  			</label>
 		<% end %>
-  		<%= link_to "Delete", question_path(question), :method => "delete" %>
+  		<%= link_to "Delete", question_path(question), :method => "delete" %><br /><br />
 	<% end %>
 </div>
 
 <br />
-<br />
 
 
 
-<%= link_to "New Question", :controller => "questions", :action => "new", :survey_id => @survey.id %>
+<%= link_to "New Question", {:controller => "questions", :action => "new", :survey_id => @survey.id}, :class => 'btn btn-primary' %>
 
 <%= link_to 'Show', @survey %> |
 <%= link_to 'Back', surveys_path %>
+<br />
+<br />
